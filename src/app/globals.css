@@ -2,26 +2,104 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+.c-slide {
+    @apply inline-flex items-center w-full h-screen bg-center bg-cover will-change-[background-size] relative transition-[1s] duration-[ease] delay-[0.4s] after:content-[""] after:w-full after:h-full after:absolute after:left-0 after:top-0;
   }
-}
-
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
+  .c-slide:after {
+    background: linear-gradient(
       to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-}
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 0.61) 76%
+    );
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr="#00000000", endColorstr="#9c000000", GradientType=0 );
+  }
+  .c-slide-content {
+    @apply w-full z-[2] max-w-[1200px] mx-auto my-0 p-8;
+  }
+  .c-slide__title {
+    @apply text-[4em] uppercase tracking-[20px] translate-y-[150px] opacity-0 transition-[0.8s] duration-[ease] will-change-[opacity,transform];
+  }
+  .c-slide__title--large,
+  .c-slide__title--medium {
+    @apply block text-[2.5em] leading-[110px] translate-y-[150px] will-change-transform delay-[0.4s] relative transition-[1s] duration-[ease];
+  }
+  .c-slide__title--medium {
+    @apply text-[1.6em] leading-[100px];
+  }
+  .c-slide__subtitle {
+    @apply uppercase tracking-[3px];
+  }
+  .c-slide__body {
+    @apply opacity-0 leading-[27px] mt-[0.7rem];
+  }
+  .c-slide__info {
+    @apply translate-y-[-150px] transition-[0.8s] duration-[ease];
+  }
+  .c-wrap {
+    @apply overflow-hidden px-0 py-8;
+  }
+  .c-wrap--small {
+    @apply max-w-[30%];
+  }
+  .c-wrap--line {
+    @apply relative after:content-[""] after:absolute after:-translate-x-2/4 after:w-0 after:h-px after:bg-[white] after:transition-[0.9s] after:duration-[ease] after:delay-[0.4s] after:left-2/4 after:bottom-0;
+  }
+  .slick-list {
+    @apply overflow-visible transition-[0.5s] duration-[ease];
+  }
+  .animateIn .c-slide__title--large,
+  .animateIn .c-slide__title--medium,
+  .animateIn .c-slide__info,
+  .animateIn .c-slide__title,
+  .animateIn .c-slide__body,
+  .initialAnimation .c-slide__title--large,
+  .initialAnimation .c-slide__title--medium,
+  .initialAnimation .c-slide__info,
+  .initialAnimation .c-slide__title,
+  .initialAnimation .c-slide__body {
+    @apply translate-y-0 opacity-100;
+  }
+  .animateIn .c-wrap--line:after,
+  .initialAnimation .c-wrap--line:after {
+    @apply translate-x-0 w-full left-0;
+  }
+  .u-scale-out {
+    @apply transition-[0.5s] duration-[ease] scale-[0.6];
+  }
+  .u-scale-in {
+    @apply scale-100;
+  }
+  @media only screen and (max-width: 1300px) {
+    .c-slide__title {
+      @apply text-[3em];
+    }
+    .c-slide__title--large {
+      @apply text-[2em];
+    }
+    .c-wrap--small {
+      @apply max-w-[50%];
+    }
+  }
+  @media only screen and (max-width: 1100px) {
+    .c-navigation {
+      @apply hidden;
+    }
+    .c-header {
+      @apply justify-between;
+    }
+  }
+  @media only screen and (max-width: 800px) {
+    .c-slide__title--medium {
+      @apply text-[1.3em];
+    }
+    .c-slide__title {
+      @apply text-[2.5em];
+    }
+    .c-slide__title--large {
+      @apply text-[1.5em];
+    }
+    .c-wrap--small {
+      @apply max-w-[80%];
+    }
+  }
+  
