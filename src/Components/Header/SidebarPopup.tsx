@@ -70,7 +70,7 @@ const SidebarPopup = ({
       {isSidebarOpen && (
         <motion.div
           ref={sidebarRef}
-          className="block md:hidden fixed top-0 left-0 z-40 w-64 h-screen p-4 overflow-y-auto bg-white border-r-2"
+          className="block lg:hidden fixed top-0 left-0 z-40 w-64 h-screen p-4 overflow-y-auto bg-white border-r-2"
           variants={sidebarVariants}
           initial="closed"
           animate="open"

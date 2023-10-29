@@ -7,13 +7,11 @@ import SidebarPopup from "./SidebarPopup";
 import Link from "next/link";
 import { motion } from "framer-motion";
 
-const settings = ["Profile", "Account", "Dashboard", "Logout", "Login"];
-
 function ResponsiveAppBar() {
   const [anchorElUser, setAnchorElUser] = useState<HTMLElement | null>(null);
   const [isOpenSideBar, setIsOpenSideBar] = useState<boolean>(false);
   const [isScrolled, setIsScrolled] = useState<boolean>(false);
-
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const userDropdownRef = useRef<HTMLDivElement | null>(null);
 
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -48,7 +46,7 @@ function ResponsiveAppBar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.pageYOffset > 0) {
+      if (window.scrollY > 0) {
         setIsScrolled(true);
       } else {
         setIsScrolled(false);
@@ -62,28 +60,21 @@ function ResponsiveAppBar() {
     };
   }, []);
 
-  const navbarVariants = {
-    initial: {
-      y: -100,
-      opacity: 0,
-    },
-    animate: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        duration: 0.5,
-        ease: "easeInOut",
-      },
-    },
-    exit: {
-      y: -100,
-      opacity: 0,
-      transition: {
-        duration: 0.5,
-        ease: "easeInOut",
-      },
-    },
-  };
+  const settingsRef = useRef<Array<string>>([]);
+  const settings = settingsRef.current;
+  useEffect(() => {
+    if (isLoggedIn) {
+      settingsRef.current = [
+        "Profile",
+        "Account",
+        "Dashboard",
+        "Logout",
+        "Login",
+      ];
+    } else {
+      settingsRef.current = ["Login", "Signup"];
+    }
+  }, [isLoggedIn, settingsRef]);
 
   return (
     <>
@@ -92,14 +83,10 @@ function ResponsiveAppBar() {
         toggleSideBar={closeSideBar}
       />
 
-      <motion.header
+      <div
         className={`bg-white w-full border-b${
           isScrolled ? " shadow-md fixed top-0  z-50" : ""
         }`}
-        variants={navbarVariants}
-        initial="initial"
-        animate="animate"
-        exit="exit"
       >
         <div className="px-2 mx-auto">
           <div className="flex items-center justify-between py-2">
@@ -113,9 +100,9 @@ function ResponsiveAppBar() {
               />
             </div>
 
-            <div className="hidden md:flex md:items-center">
+            <div className="hidden lg:flex lg:items-center">
               <button className="px-4">
-                <div className="hidden md:flex md:flex-col md:items-center md:justify-center md:text-center px-5">
+                <div className="hidden lg:flex lg:flex-col lg:items-center lg:justify-center lg:text-center px-5">
                   <IoLocationOutline size={20} />
                   <span className="text-xs">INDIA</span>
                 </div>
@@ -219,7 +206,7 @@ function ResponsiveAppBar() {
                 )}
               </div>
             </div>
-            <div className="flex md:hidden md:items-center pr-3">
+            <div className="flex lg:hidden lg:items-center pr-3">
               <button
                 onClick={() => {
                   if (isOpenSideBar === false) {
@@ -243,7 +230,7 @@ function ResponsiveAppBar() {
             </div>
           </div>
         </div>
-      </motion.header>
+      </div>
     </>
   );
 }
