@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import {
   FaHome,
@@ -7,9 +9,9 @@ import {
   FaRing,
   FaBriefcase,
 } from "react-icons/fa";
-import { BsHouseAdd } from "react-icons/Bs";
-import { BiSolidBusiness, BiLogOut } from "react-icons/Bi";
-import { GiRingBox } from "react-icons/Gi";
+import { BsHouseAdd } from "react-icons/bs";
+import { BiSolidBusiness, BiLogOut } from "react-icons/bi";
+import { GiRingBox } from "react-icons/gi";
 import { IoLocationOutline } from "react-icons/io5";
 
 interface DynamicIconProps {
