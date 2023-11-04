@@ -3,29 +3,17 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 
-export default function Intro() {
-  const placeholderText = [
-    { type: "heading1", text: "Plan Your Gathering" },
-    {
-      type: "heading3",
-      text: `"Your Ultimate Destination for Memorable Celebrations"`,
-    },
-    { type: "heading2", text: "Animating responsive text!" },
-  ];
+interface Props {
+  shouldAnimate: boolean;
+}
 
-  const container = {
-    visible: {
-      transition: {
-        staggerChildren: 0.025,
-      },
-    },
-  };
+const IntroDesktop = () => {
 
   return (
     <div className="bg-white  hidden items-center justify-center overflow-hidden relative lg:flex">
-      <div className="w-[200px] h-[100vh] bg-white absolute transform rotate-12 z-10"></div>
+      <div className="w-[200px] h-[130vh] bg-white absolute transform rotate-12 z-10"></div>
       <motion.div
-        className="w-[200px] h-[100vh]  border-r-4 border-black absolute transform rotate-12 z-20"
+        className="w-[200px] h-[130vh]  border-r-4 border-black absolute transform rotate-12 z-20"
         initial={{ scaleY: 0, rotate: 0 }}
         animate={{ scaleY: 1, rotate: 12 }}
         transition={{ duration: 1 }}
@@ -75,7 +63,10 @@ export default function Intro() {
               transition={{ duration: 1, delay: 0.25 }}
               className="pt-8 space-y-6 pb-2"
             >
-              <Link className="bg-gray-100 inline-flex py-3 px-5 rounded-lg items-center hover:bg-gray-200 focus:outline-none" href="/user/signup">
+              <Link
+                className="bg-gray-100 inline-flex py-3 px-5 rounded-lg items-center hover:bg-gray-200 focus:outline-none"
+                href="/user/signup"
+              >
                 Join Us
               </Link>
               <div>
@@ -143,4 +134,6 @@ export default function Intro() {
       </div>
     </div>
   );
-}
+};
+
+export default IntroDesktop;

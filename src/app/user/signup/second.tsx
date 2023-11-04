@@ -9,111 +9,136 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 
-const SecondSignup = () => {
-  const userType = useSearchParams().get("user-type");
+interface SecondSignupProps {
+  userType: string;
+  setGoBack: React.Dispatch<React.SetStateAction<boolean>>;
+  goback: boolean;
+}
+
+const SecondSignup = ({ userType, setGoBack, goback }: SecondSignupProps) => {
   const [showPassword, setShowPassword] = useState(false);
-
-  const toggleShowPassword = () => {
-    setShowPassword(!showPassword);
-  };
-
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [firstNameError, setFirstNameError] = useState("");
-  const [lastNameError, setLastNameError] = useState("");
-  const [phoneNumberError, setPhoneNumberError] = useState("");
-  const [emailError, setEmailError] = useState("");
-  const [passwordError, setPasswordError] = useState("");
-  const [confirmPasswordError, setConfirmPasswordError] = useState("");
+  const [firstNameError, setFirstNameError] = useState(false);
+  const [lastNameError, setLastNameError] = useState(false);
+  const [phoneNumberError, setPhoneNumberError] = useState(false);
+  const [emailError, setEmailError] = useState(false);
+  const [passwordError, setPasswordError] = useState(false);
+  const [confirmPasswordError, setConfirmPasswordError] = useState(false);
+  const [firstNameErrorMessage, setFirstNameErrorMessage] = useState("");
+  const [lastNameErrorMessage, setLastNameErrorMessage] = useState("");
+  const [phoneNumberErrorMessage, setPhoneNumberErrorMessage] = useState("");
+  const [emailErrorMessage, setEmailErrorMessage] = useState("");
+  const [passwordErrorMessage, setPasswordErrorMessage] = useState("");
+  const [confirmPasswordErrorMessage, setConfirmPasswordErrorMessage] =
+    useState("");
 
-  const validateFirstName = () => {
-    if (firstName.length <= 0) {
-      setFirstNameError("First name is required");
-    } else {
-      setFirstNameError("");
-    }
+  const toggleShowPassword = () => {
+    setShowPassword(!showPassword);
   };
 
-  const validateLastName = () => {
-    if (lastName.length <= 0) {
-      setLastNameError("Last name is required");
-    } else {
-      setLastNameError("");
-    }
-  };
+  const validateConfirmPassword = () => {};
 
-  const validatePhoneNumber = () => {
-    if (phoneNumber.length <= 0) {
-      setPhoneNumberError("Phone number is required");
+  const validateForm = () => {
+    let isValid = true;
+
+    if (!firstName) {
+      setFirstNameErrorMessage("First name is required");
+      setFirstNameError(true);
+      isValid = false;
+    } else {
+      setFirstNameErrorMessage("");
+      setFirstNameError(false);
+    }
+
+    if (!lastName) {
+      setLastNameErrorMessage("Last name is required");
+      setLastNameError(true);
+      isValid = false;
+    } else {
+      setLastNameErrorMessage("");
+      setLastNameError(false);
+    }
+
+    if (!phoneNumber) {
+      setPhoneNumberErrorMessage("Phone number is required");
+      setPhoneNumberError(true);
+      isValid = false;
     } else if (!/^\+\d{2}\d{10}$/.test(phoneNumber)) {
-      setPhoneNumberError("Invalid phone number format");
+      setPhoneNumberErrorMessage("Invalid phone number format");
+      setPhoneNumberError(true);
+      isValid = false;
     } else {
-      setPhoneNumberError("");
+      setPhoneNumberErrorMessage("");
+      setPhoneNumberError(false);
     }
-  };
 
-  const validateEmail = () => {
-    if (email.length <= 0) {
-      setEmailError("Email address is required");
-    } else if (!/\S+@\S+\.\S+/.test(email)) {
-      setEmailError("Invalid email address format");
+    if (!email) {
+      setEmailErrorMessage("Email address is required");
+      setEmailError(true);
+      isValid = false;
+    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(email)) {
+      setEmailErrorMessage("Invalid email address");
+      setEmailError(true);
+      isValid = false;
     } else {
-      setEmailError("");
+      setEmailErrorMessage("");
+      setEmailError(false);
     }
-  };
 
-  const validatePassword = () => {
-    if (password.length <= 0) {
-      setPasswordError("Password is required");
-    } else if (password.length < 8) {
-      setPasswordError("Password must be at least 8 characters long");
+    if (!password) {
+      setPasswordErrorMessage("Password is required");
+      setPasswordError(true);
+      isValid = false;
+    } else if (password.length < 8 || password.length > 20) {
+      setPasswordErrorMessage(
+        "Password must be at least 8 characters long and at most 20 characters long"
+      );
+      setPasswordError(true);
+      isValid = false;
     } else if (
       !/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/.test(
         password
       )
     ) {
-      setPasswordError(
+      setPasswordErrorMessage(
         "Password must contain at least one uppercase letter, one lowercase letter, and one special character"
       );
+      setPasswordError(true);
+      isValid = false;
     } else {
-      setPasswordError("");
+      setPasswordErrorMessage("");
+      setPasswordError(false);
     }
-  };
 
-  const validateConfirmPassword = () => {
-    if (confirmPassword.length <= 0) {
-      setConfirmPasswordError("Confirm password is required");
+    if (!confirmPassword.length) {
+      setConfirmPasswordErrorMessage("Confirm password is required");
+      setConfirmPasswordError(true);
+      isValid = false;
     } else if (confirmPassword !== password) {
-      setConfirmPasswordError("Passwords do not match");
+      setConfirmPasswordErrorMessage("Passwords do not match");
+      setConfirmPasswordError(true);
+      isValid = false;
     } else {
-      setConfirmPasswordError("");
+      setConfirmPasswordErrorMessage("");
+      setConfirmPasswordError(false);
     }
+
+    return isValid;
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    validateFirstName();
-    validateLastName();
-    validatePhoneNumber();
-    validateEmail();
-    validatePassword();
-    validateConfirmPassword();
-    // If all fields are valid, submit the form
-    if (
-      firstNameError.length > 0 &&
-      lastNameError.length > 0 &&
-      phoneNumberError.length > 0 &&
-      emailError.length > 0 &&
-      passwordError.length > 0 &&
-      confirmPasswordError.length > 0
-    ) {
+
+    const formIsValid = validateForm();
+
+    if (formIsValid) {
       console.log(
         JSON.stringify({
-          userType,
           firstName,
           lastName,
           phoneNumber,
@@ -122,6 +147,8 @@ const SecondSignup = () => {
           confirmPassword,
         })
       );
+    } else {
+      console.log("Validation error occurred");
     }
   };
 
@@ -150,12 +177,14 @@ const SecondSignup = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
               >
-                <Link
+                <button
                   className="rounded-full bg-gray-200 p-2 mr-4"
-                  href={"/user/signup/first"}
+                  onClick={() => {
+                    setGoBack(true);
+                  }}
                 >
                   <FiArrowLeft size={24} />
-                </Link>
+                </button>
                 <Image
                   src="/logo.png"
                   alt="Logo"
@@ -180,7 +209,7 @@ const SecondSignup = () => {
               </div>
 
               <form
-                onSubmit={handleSubmit}
+                onSubmit={handleFormSubmit}
                 className="grid grid-cols-1 gap-6 mt-8 md:grid-cols-2"
               >
                 <div>
@@ -194,14 +223,13 @@ const SecondSignup = () => {
                     placeholder="John"
                     value={firstName}
                     onChange={(event) => setFirstName(event.target.value)}
-                    onBlur={validateFirstName}
                     className={`block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border ${
                       firstNameError ? "border-red-500" : "border-gray-200"
                     } rounded-lg  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40`}
                   />
                   {firstNameError && (
                     <p className="mt-2 text-sm text-red-500">
-                      {firstNameError}
+                      {firstNameErrorMessage}
                     </p>
                   )}
                 </div>
@@ -216,13 +244,14 @@ const SecondSignup = () => {
                     placeholder="Snow"
                     value={lastName}
                     onChange={(event) => setLastName(event.target.value)}
-                    onBlur={validateLastName}
                     className={`block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border ${
                       lastNameError ? "border-red-500" : "border-gray-200"
                     } rounded-lg  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40`}
                   />
                   {lastNameError && (
-                    <p className="mt-2 text-sm text-red-500">{lastNameError}</p>
+                    <p className="mt-2 text-sm text-red-500">
+                      {lastNameErrorMessage}
+                    </p>
                   )}
                 </div>
 
@@ -236,14 +265,13 @@ const SecondSignup = () => {
                     placeholder="+91-XX-XXXX-XXXX"
                     value={phoneNumber}
                     onChange={(event) => setPhoneNumber(event.target.value)}
-                    onBlur={validatePhoneNumber}
                     className={`block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border ${
                       phoneNumberError ? "border-red-500" : "border-gray-200"
                     } rounded-lg  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40`}
                   />
                   {phoneNumberError && (
                     <p className="mt-2 text-sm text-red-500">
-                      {phoneNumberError}
+                      {phoneNumberErrorMessage}
                     </p>
                   )}
                 </div>
@@ -258,13 +286,14 @@ const SecondSignup = () => {
                     placeholder="johnsnow@example.com"
                     value={email}
                     onChange={(event) => setEmail(event.target.value)}
-                    onBlur={validateEmail}
                     className={`block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border ${
                       emailError ? "border-red-500" : "border-gray-200"
                     } rounded-lg  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40`}
                   />
                   {emailError && (
-                    <p className="mt-2 text-sm text-red-500">{emailError}</p>
+                    <p className="mt-2 text-sm text-red-500">
+                      {emailErrorMessage}
+                    </p>
                   )}
                 </div>
 
@@ -279,7 +308,6 @@ const SecondSignup = () => {
                       placeholder="Enter your password"
                       value={password}
                       onChange={(event) => setPassword(event.target.value)}
-                      onBlur={validatePassword}
                       className={`block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border ${
                         passwordError ? "border-red-500" : "border-gray-200"
                       } rounded-lg  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40`}
@@ -297,7 +325,9 @@ const SecondSignup = () => {
                     </button>
                   </div>
                   {passwordError && (
-                    <p className="mt-2 text-sm text-red-500">{passwordError}</p>
+                    <p className="mt-2 text-sm text-red-500">
+                      {passwordErrorMessage}
+                    </p>
                   )}
                 </div>
 
@@ -335,7 +365,7 @@ const SecondSignup = () => {
                   </div>
                   {confirmPasswordError && (
                     <p className="mt-2 text-sm text-red-500">
-                      {confirmPasswordError}
+                      {confirmPasswordErrorMessage}
                     </p>
                   )}
                 </div>

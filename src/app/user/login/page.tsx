@@ -10,9 +10,10 @@ import { useState } from "react";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  const [phoneNumberOrEmailError, setPhoneNumberorEmailError] = useState("");
-  const [passwordError, setPasswordError] = useState("");
+  const [emailError, setEmailError] = useState(false);
+  const [passwordError, setPasswordError] = useState(false);
+  const [emailErrorMessage, setEmailErrorMessage] = useState("");
+  const [passwordErrorMessage, setPasswordErrorMessage] = useState("");
 
   const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
@@ -22,49 +23,42 @@ const Login = () => {
     setPassword(event.target.value);
   };
 
-  const validatePhoneNumber = () => {
-    if (email.length <= 0) {
-      setPhoneNumberorEmailError("Phone number or Email is required");
-    } else if (!/^\+\d{2}\d{10}$/.test(email)) {
-      setPhoneNumberorEmailError("Invalid phone number format");
-    } else {
-      setPhoneNumberorEmailError("");
-    }
-  };
+  const validateForm = () => {
+    let isValid = true;
 
-  const validateEmail = () => {
-    if (email.length <= 0) {
-      setPhoneNumberorEmailError("Phone number or Email is required");
-    } else if (!/\S+@\S+\.\S+/.test(email)) {
-      setPhoneNumberorEmailError("Invalid email address format");
+    if (
+      !email.match(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/) &&
+      !email.match(/^\+91\d{10}$/)
+    ) {
+      setEmailError(true);
+      setEmailErrorMessage("Please enter a valid email or phone number");
+      isValid = false;
     } else {
-      setPhoneNumberorEmailError("");
+      setEmailError(false);
+      setEmailErrorMessage("");
     }
-  };
 
-  const validatePassword = () => {
-    if (password.length <= 0) {
-      setPasswordError("Password is required");
+    if (password.length < 8) {
+      setPasswordError(true);
+      setPasswordErrorMessage("Password must be at least 8 characters long");
+      isValid = false;
     } else {
-      setPasswordError("");
+      setPasswordError(false);
+      setPasswordErrorMessage("");
     }
+
+    return isValid;
   };
 
   const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (/^\d+$/.test(email)) {
-      validatePhoneNumber();
+
+    const formIsValid = validateForm();
+
+    if (formIsValid) {
+      console.log(JSON.stringify({ email, password }));
     } else {
-      validateEmail();
-    }
-    validatePassword();
-    if (passwordError.length <= 0 && phoneNumberOrEmailError.length <= 0) {
-      console.log(
-        JSON.stringify({
-          email,
-          password,
-        })
-      );
+      console.log("Validation error occurred");
     }
   };
 
@@ -78,8 +72,8 @@ const Login = () => {
               backgroundImage:
                 "url(https://lh3.googleusercontent.com/pw/ADCreHdZpi1-EbaYLzQPL_KlkHia299rEE6nFC9dIl1G2_AoTsLb9-oECqXexN-CPm9qVWZAllG5rXVD-z2ZOQHm3JDjO4mmN_tZmdBBzrhMDj7FEBHX1rja3MDlrZVvWPuBGZXUWalHtQOGAk9jFv9nB7nzQQ=w1805-h1205-s-no-gm?authuser=0)",
             }}
-            initial={{ x: "100vw" }}
-            animate={{ x: 0 }}
+            initial={{ y: "-100vh" }}
+            animate={{ y: 0 }}
             transition={{ duration: 1 }}
           >
             <div className="flex items-center justify-center lg:justify-start h-full px-5 lg:px-20 bg-gray-900 bg-opacity-40 text-white">
@@ -152,9 +146,9 @@ const Login = () => {
                       onChange={handleEmailChange}
                       className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
                     />
-                    {phoneNumberOrEmailError && (
+                    {emailError && (
                       <p className="mt-2 text-sm text-red-500">
-                        {phoneNumberOrEmailError}
+                        {emailErrorMessage}
                       </p>
                     )}
                   </div>
@@ -186,7 +180,7 @@ const Login = () => {
                     />
                     {passwordError && (
                       <p className="mt-2 text-sm text-red-500">
-                        {passwordError}
+                        {passwordErrorMessage}
                       </p>
                     )}
                   </div>

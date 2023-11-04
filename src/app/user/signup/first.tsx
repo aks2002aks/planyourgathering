@@ -8,10 +8,25 @@ import { FaExclamationTriangle } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
-const FirstSignup = () => {
+interface FirstSignupProps {
+  isVendorClicked: boolean;
+  setIsVendorClicked: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsCustomerClicked: React.Dispatch<React.SetStateAction<boolean>>;
+  isCustomerClicked: boolean;
+  setGoBack: React.Dispatch<React.SetStateAction<boolean>>;
+  goback: boolean;
+}
+
+const FirstSignup = ({
+  isVendorClicked,
+  isCustomerClicked,
+  setIsVendorClicked,
+  setIsCustomerClicked,
+  setGoBack,
+  goback,
+}: FirstSignupProps) => {
   const router = useRouter();
-  const [isVendorClicked, setIsVendorClicked] = useState(false);
-  const [isCustomerClicked, setIsCustomerClicked] = useState(false);
+
   const [isError, setIsError] = useState(false);
   const [message, setMessage] = useState("");
 
@@ -245,14 +260,7 @@ const FirstSignup = () => {
         <button
           className="bg-gray-200 hover:bg-gray-300 font-bold py-2 px-4 rounded flex"
           onClick={() => {
-            if (isCustomerClicked) {
-              router.push("/user/signup/second?user-type=Customer");
-            } else if (isVendorClicked) {
-              router.push("/user/signup/second?user-type=Vendor");
-            } else {
-              setIsError(true);
-              setMessage("Please select one of the options");
-            }
+            setGoBack(false);
           }}
         >
           <p className="px-1">NEXT</p>
@@ -263,14 +271,12 @@ const FirstSignup = () => {
         <div>
           <p className="text-center pt-5">
             Already have an account?{" "}
-            <button
+            <Link
               className="text-blue-500 hover:text-blue-700"
-              onClick={() => {
-                router.push("/user/login");
-              }}
+              href="/user/login"
             >
               Login
-            </button>
+            </Link>
           </p>
         </div>
       </div>
