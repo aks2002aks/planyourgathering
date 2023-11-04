@@ -6,7 +6,6 @@ import {
   FaUser,
   FaHeart,
   FaSearch,
-  FaRing,
   FaBriefcase,
 } from "react-icons/fa";
 import { BsHouseAdd } from "react-icons/bs";
