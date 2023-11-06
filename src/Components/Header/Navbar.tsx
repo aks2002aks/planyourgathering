@@ -84,13 +84,13 @@ function ResponsiveAppBar() {
       />
 
       <div
-        className={`bg-white w-full border-b${
-          isScrolled ? " shadow-md fixed top-0  z-50" : ""
+        className={`bg-white w-full border-b z-50${
+          isScrolled ? " shadow-md fixed top-0  " : ""
         }`}
       >
         <div className="px-2 mx-auto">
           <div className="flex items-center justify-between py-2">
-            <div className="flex-col items-center justify-center">
+            <Link className="flex-col items-center justify-center" href={"/"}>
               <Image
                 src="/logo.png"
                 alt="Logo"
@@ -98,7 +98,7 @@ function ResponsiveAppBar() {
                 height={60}
                 className="mr-4"
               />
-            </div>
+            </Link>
 
             <div className="hidden lg:flex lg:items-center">
               <button className="px-4">

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import Layout from "@/Components/Layout";
+
 import FirstPage from "./firstPage";
 import SecondPage from "./secondPage";
 import ThirdPage from "./thirdPage";
@@ -12,7 +12,7 @@ const Page = () => {
   const [isVendor, setisVendor] = useState(true);
 
   return (
-    <Layout>
+    <>
       <FirstPage
         isLoggedIn={isLoggedIn}
         setisLoggedIn={setisLoggedIn}
@@ -22,7 +22,7 @@ const Page = () => {
       <SecondPage />
       <ThirdPage />
       <FourthPage />
-    </Layout>
+    </>
   );
 };
 

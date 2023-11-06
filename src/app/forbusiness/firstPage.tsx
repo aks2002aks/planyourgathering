@@ -54,10 +54,10 @@ const FirstPage = ({
                 className="text-3xl font-extrabold text-gray-900"
               >
                 <Link href="/">
-            <button className="rounded-full bg-gray-200 p-2 mr-4">
-              <FiArrowLeft size={24} />
-            </button>
-          </Link>
+                  <button className="rounded-full bg-gray-200 p-2 mr-4">
+                    <FiArrowLeft size={24} />
+                  </button>
+                </Link>
                 Join Our Vendor Network
               </motion.h1>
               <motion.p
@@ -129,7 +129,7 @@ const FirstPage = ({
                 {!isLoggedIn && (
                   <Link
                     href="/user/signup"
-                    className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-red-600 hover:bg-indigo-700"
+                    className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-red-600 hover:bg-red-700"
                   >
                     Sign up now
                   </Link>
@@ -137,15 +137,15 @@ const FirstPage = ({
                 {isLoggedIn &&
                   (isVendor ? (
                     <Link
-                      href="/user/signup"
-                      className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-red-600 hover:bg-indigo-700"
+                      href="/user/setUpVendor"
+                      className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-red-600 hover:bg-red-700"
                     >
                       Set up Vendor Account
                     </Link>
                   ) : (
                     <Link
-                      href="/user/signup"
-                      className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-red-600 hover:bg-indigo-700"
+                      href="/user/changeUserType"
+                      className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-red-600 hover:bg-red-700"
                     >
                       Join as Vendor
                     </Link>

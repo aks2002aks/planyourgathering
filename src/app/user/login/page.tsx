@@ -65,15 +65,15 @@ const Login = () => {
   return (
     <div>
       <div className="bg-white ">
-        <div className="flex  h-screen flex-col lg:flex-row">
+        <div className="flex   flex-col lg:flex-row">
           <motion.div
             className=" bg-cover lg:block lg:w-2/3 h-[40vh] md:h-[50vh] lg:h-screen"
             style={{
               backgroundImage:
                 "url(https://lh3.googleusercontent.com/pw/ADCreHdZpi1-EbaYLzQPL_KlkHia299rEE6nFC9dIl1G2_AoTsLb9-oECqXexN-CPm9qVWZAllG5rXVD-z2ZOQHm3JDjO4mmN_tZmdBBzrhMDj7FEBHX1rja3MDlrZVvWPuBGZXUWalHtQOGAk9jFv9nB7nzQQ=w1805-h1205-s-no-gm?authuser=0)",
             }}
-            initial={{ y: "-100vh" }}
-            animate={{ y: 0 }}
+            initial={{ x: "-100vw" }}
+            animate={{ x: 0 }}
             transition={{ duration: 1 }}
           >
             <div className="flex items-center justify-center lg:justify-start h-full px-5 lg:px-20 bg-gray-900 bg-opacity-40 text-white">
@@ -99,7 +99,7 @@ const Login = () => {
             </div>
           </motion.div>
 
-          <div className="flex items-center w-full max-w-md px-6 mx-auto lg:w-2/6 z-10 bg-white pt-8 pb-4 lg:pt-0">
+          <div className="flex items-center w-full max-w-md px-6 mx-auto lg:w-2/6  bg-white pt-8 pb-4 lg:pt-0">
             <div className="flex-1">
               <div className="text-center">
                 <div className="flex items-center justify-center mx-auto mb-2">
@@ -161,12 +161,7 @@ const Login = () => {
                       >
                         Password
                       </label>
-                      <a
-                        href="#"
-                        className="text-sm text-gray-400 focus:text-blue-500 hover:text-blue-500 hover:underline"
-                      >
-                        Forgot password?
-                      </a>
+                     
                     </div>
 
                     <input
@@ -193,12 +188,28 @@ const Login = () => {
                 </form>
 
                 <p className="mt-6 text-sm text-center text-gray-400">
-                  Don&#x27;t have an account yet?{" "}
+                  Don&#x27;t have an account yet ?{" "}
                   <Link
                     href="/user/signup"
                     className="text-red-500 focus:outline-none focus:underline hover:underline"
                   >
                     Sign up
+                  </Link>
+                </p>
+
+                <div className="flex items-center justify-center mt-6">
+                  <div className="border-b border-gray-400 w-full mr-4"></div>
+                  <div className="text-sm text-center text-gray-400">or</div>
+                  <div className="border-b border-gray-400 w-full ml-4"></div>
+                </div>
+
+                <p className="mt-6 text-sm text-center text-gray-400">
+                  Have Trouble Signing in ?{" "}
+                  <Link
+                    href="/user/forgotPassword"
+                    className="text-red-500 focus:outline-none focus:underline hover:underline"
+                  >
+                    Forgot Password
                   </Link>
                 </p>
               </div>

@@ -4,9 +4,9 @@ import IntroMobile from "@/Components/Home/Intro/IntroMobile";
 
 export default function Home() {
   return (
-    <Layout>
+    <>
       <IntroDesktop />
       <IntroMobile />
-    </Layout>
+    </>
   );
 }

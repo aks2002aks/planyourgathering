@@ -90,15 +90,6 @@ const FirstSignup = ({
 
   return (
     <div>
-      <div className="flex items-center justify-center pt-2">
-        <Image
-          src="/logo.png"
-          alt="Logo"
-          width={60}
-          height={60}
-          className="mr-4"
-        />
-      </div>
       <div className="text-2xl pt-5">
         <motion.h1
           className="text-center font-bold text-4xl mb-2"
