@@ -84,7 +84,11 @@ const SidebarPopup = ({
             <ul className="space-y-2 font-medium">
               {tabs.map((tab) => (
                 <li key={tab}>
-                  <SideBarPopupItem name={tab} />
+                  <SideBarPopupItem
+                    name={tab}
+                    dropitem={tab === "USER" ? true : false}
+                    toggleSideBar={toggleSideBar}
+                  />
                 </li>
               ))}
             </ul>

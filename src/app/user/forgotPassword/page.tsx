@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import ForgotPasswordFirst from "./first";
 import ForgotPasswordSecond from "./second";
 import ForgotPasswordThird from "./third";
+import Steps from "./steps";
 
 const ForgotPassword = () => {
   const [step, setStep] = useState(1);
@@ -33,6 +34,7 @@ const ForgotPassword = () => {
 
   return (
     <>
+      <Steps step={step} />
       {step === 1 && (
         <ForgotPasswordFirst
           handleInput={handleInput}

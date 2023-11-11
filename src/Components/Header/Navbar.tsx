@@ -155,7 +155,7 @@ function ResponsiveAppBar() {
 
                   <li className="relative">
                     <Link
-                      href="weddingwebsites"
+                      href="/weddingwebsites"
                       className="flex items-center p-2 text-black group text-center"
                     >
                       <p className="flex-1 m-3 whitespace-nowrap">
@@ -166,7 +166,7 @@ function ResponsiveAppBar() {
                   </li>
                   <li className="relative">
                     <Link
-                      href="forbusiness"
+                      href="/forbusiness"
                       className="flex items-center p-2 text-black group text-center"
                     >
                       <p className="flex-1 m-3 whitespace-nowrap">

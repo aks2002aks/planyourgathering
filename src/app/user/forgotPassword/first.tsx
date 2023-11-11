@@ -7,7 +7,7 @@ interface FirstProps {
 }
 
 const First = ({ handleInput }: FirstProps) => {
-  const [inputType, setInputType] = useState("");
+  const [inputType, setInputType] = useState("email");
   const [errorMessage, setErrorMessage] = useState("");
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -44,7 +44,7 @@ const First = ({ handleInput }: FirstProps) => {
       {" "}
       <div>
         <section className="bg-white">
-          <div className="max-w-3xl px-6 py-16 mx-auto text-center">
+          <div className="max-w-3xl px-6 py-8 mx-auto text-center">
             <h1 className="text-3xl font-semibold text-gray-800 ">
               Having Trouble Logging In ?
             </h1>
@@ -81,15 +81,17 @@ const First = ({ handleInput }: FirstProps) => {
                   </div>
                 </div>
                 <div className="space-y-4">
+                  
                   <input
                     id="input"
                     type={inputType === "phone" ? "tel" : "email"}
-                    className="px-4 py-2 text-gray-700 bg-white border rounded-md sm:mx-2  focus:border-red-400  focus:outline-none focus:ring focus:ring-red-300 focus:ring-opacity-40"
+                    className="px-2 py-2 text-gray-700 bg-white border rounded-md sm:mx-2  focus:border-red-400  focus:outline-none focus:ring focus:ring-red-300 focus:ring-opacity-40"
                     placeholder={
                       inputType === "phone" ? "Phone Number" : "Email Address"
                     }
                     required
                   />
+                  
                   <div className="text-red-500 text-sm font-medium text-center h-[10px]">
                     <p>{errorMessage}</p>
                   </div>

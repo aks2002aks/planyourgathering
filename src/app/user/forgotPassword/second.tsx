@@ -129,7 +129,7 @@ const Second: React.FC<SecondProps> = ({
 
             <div className="flex flex-col space-y-5 m-3">
               <div>
-                <button className="flex flex-row items-center justify-center text-center w-full  border rounded-xl outline-none py-3 bg-blue-700 border-none text-white text-sm shadow-sm">
+                <button className="flex flex-row items-center justify-center text-center w-full  border rounded-xl outline-none py-3 bg-red-500 hover:bg-red-700 border-none text-white text-sm shadow-sm">
                   Verify Account
                 </button>
               </div>
